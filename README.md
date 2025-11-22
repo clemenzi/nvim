@@ -1,0 +1,3 @@
+# Valerio's Neovim Configuration
+
+My Neovim configuration files. Note that I use the [VSCode Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) extension to run Neovim inside VSCode. Most of my plugins focus on the code editing experience, as I rely on VSCode for file exploration, Git integration, terminal access, AI assistance (my primary reason for using VSCode), and other features. I also occasionally use Neovim from the terminal for quick file edits.
