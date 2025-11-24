@@ -52,19 +52,12 @@ return {
 		"kylechui/nvim-surround",
 		version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({})
-		end,
-	},
-	{
-		"numToStr/Comment.nvim",
-		event = "VeryLazy",
 		opts = {},
 	},
 	{
 		"windwp/nvim-autopairs",
 		enabled = not vim.g.vscode,
 		event = "InsertEnter",
-		config = true,
+		opts = {},
 	},
 }

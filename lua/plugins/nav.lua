@@ -16,21 +16,21 @@ return {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		enabled = not vim.g.vscode,
 		tag = "v0.1.9",
 		cmd = "Telescope",
+		enabled = not vim.g.vscode,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
-			file_ignore_patterns = { "node_modules" },
 			defaults = require("telescope.themes").get_dropdown({
 				winblend = 10,
 				previewer = false,
+				file_ignore_patterns = { "node_modules" },
 			}),
 		},
 		keys = {
-			{ "<leader><leader>", "<cmd>Telescope buffers<cr>", desc = "Navigate between buffers" },
-			{ "<leader>?", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Files" },
+			{ "<leader><leader>", "<cmd>Telescope buffers<cr>",                   desc = "Navigate between buffers" },
+			{ "<leader>?",        "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+			{ "<leader>/",        "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Files" },
 		},
 	},
 }

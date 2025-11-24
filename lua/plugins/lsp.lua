@@ -1,13 +1,13 @@
 -- plugin to improve code completion, lsp, linting, and treesitter
 return {
 	{
-		"neovim/nvim-lspconfig",
+		"mason-org/mason-lspconfig.nvim",
 		enabled = not vim.g.vscode,
 		event = { "BufReadPost", "BufNewFile" },
-		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		dependencies = {
 			{
-				"mason-org/mason-lspconfig.nvim",
+				"neovim/nvim-lspconfig",
+				cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 				enabled = not vim.g.vscode,
 			},
 			{
@@ -25,20 +25,16 @@ return {
 				{ desc = "Format File" },
 			},
 		},
-		config = function()
-			local ms_lsp = require("mason-lspconfig")
-
-			ms_lsp.setup({
-				ensure_installed = {},
-				handlers = {
-					function(server_name)
-						require("lspconfig")[server_name].setup({
-							capabilities = require("blink.cmp").get_lsp_capabilities(),
-						})
-					end,
-				},
-			})
-		end,
+		opts = {
+			ensure_installed = {},
+			handlers = {
+				function(server_name)
+					require("lspconfig")[server_name].setup({
+						capabilities = require("blink.cmp").get_lsp_capabilities(),
+					})
+				end,
+			},
+		},
 	},
 	{
 		"mason-org/mason.nvim",
