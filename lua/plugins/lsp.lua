@@ -80,9 +80,9 @@ return {
 		enabled = not vim.g.vscode,
 		cmd = "Copilot",
 		event = "InsertEnter",
-		-- dependencies = {
-		-- 	"copilotlsp-nvim/copilot-lsp",
-		-- },
+		dependencies = {
+			"copilotlsp-nvim/copilot-lsp",
+		},
 		keys = {
 			{
 				"<Tab>",
@@ -107,6 +107,14 @@ return {
 					accept = false,
 				},
 			},
+			-- nes = {
+			-- 	enabled = true,
+			-- 	keymap = {
+			-- 		accept_and_goto = "<leader>p",
+			-- 		accept = false,
+			-- 		dismiss = "<Esc>",
+			-- 	},
+			-- },
 		},
 	},
 }
