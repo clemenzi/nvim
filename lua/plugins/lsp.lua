@@ -65,6 +65,7 @@ return {
 		opts = {
 			keymap = {
 				preset = "super-tab",
+				["<CR>"] = { "select_and_accept", "fallback" },
 				["<Tab>"] = {
 					function(cmp)
 						if vim.b[vim.api.nvim_get_current_buf()].nes_state then
