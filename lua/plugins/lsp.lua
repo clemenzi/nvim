@@ -40,7 +40,9 @@ return {
 		"mason-org/mason.nvim",
 		enabled = not vim.g.vscode,
 		cmd = { "MasonInstall", "MasonUninstall", "Mason" },
-		opts = {},
+		opts = {
+			ensure_installed = { "copilot-language-server" },
+		},
 	},
 	{
 		"folke/lazydev.nvim",
@@ -61,7 +63,24 @@ return {
 		event = "InsertEnter",
 		version = "*",
 		opts = {
-			keymap = { preset = "enter" },
+			keymap = {
+				preset = "super-tab",
+				["<Tab>"] = {
+					function(cmp)
+						if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+							cmp.hide()
+							return require("copilot-lsp.nes").apply_pending_nes()
+								and require("copilot-lsp.nes").walk_cursor_end_edit()
+						end
+						if cmp.snippet_active() then
+							return cmp.accept()
+						end
+						return cmp.select_and_accept()
+					end,
+					"snippet_forward",
+					"fallback",
+				},
+			},
 			signature = { enabled = true },
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -76,45 +95,35 @@ return {
 		},
 	},
 	{
-		"zbirenbaum/copilot.lua",
+		"copilotlsp-nvim/copilot-lsp",
 		enabled = not vim.g.vscode,
-		cmd = "Copilot",
 		event = "InsertEnter",
-		dependencies = {
-			"copilotlsp-nvim/copilot-lsp",
-		},
 		keys = {
 			{
 				"<Tab>",
 				function()
-					local suggestion = require("copilot.suggestion")
-					if suggestion.is_visible() then
-						suggestion.accept()
-					else
-						return "<Tab>"
+					if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+						local nes = require("copilot-lsp.nes")
+						return nes.walk_cursor_start_edit()
+							or (nes.apply_pending_nes() and nes.walk_cursor_end_edit())
 					end
+					return "<C-i>"
 				end,
-				mode = "i",
+				mode = "n",
 				expr = true,
-				replace_keycodes = true,
+				desc = "Accept Copilot NES suggestion",
 			},
 		},
-		opts = {
-			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				keymap = {
-					accept = false,
+		init = function()
+			vim.g.copilot_nes_debounce = 500
+		end,
+		config = function()
+			require("copilot-lsp").setup({
+				nes = {
+					move_count_threshold = 3,
 				},
-			},
-			-- nes = {
-			-- 	enabled = true,
-			-- 	keymap = {
-			-- 		accept_and_goto = "<leader>p",
-			-- 		accept = false,
-			-- 		dismiss = "<Esc>",
-			-- 	},
-			-- },
-		},
+			})
+			vim.lsp.enable("copilot_ls")
+		end,
 	},
 }
