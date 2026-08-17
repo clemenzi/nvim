@@ -1,0 +1,3 @@
+WRN 2026-08-17T15:46:50.638 ?.12791    server_start:197: Failed to start server: operation not permitted: /var/folders/zy/25fchwpj7pz442qzzkdrfd180000gn/T/nvim.vcz/xotTD7/nvim.12791.0
+WRN 2026-08-17T15:56:59.737 ?.20445    server_start:197: Failed to start server: operation not permitted: /var/folders/zy/25fchwpj7pz442qzzkdrfd180000gn/T/nvim.vcz/VXuQTx/nvim.20445.0
+WRN 2026-08-17T15:58:04.594 ?.20506    server_start:197: Failed to start server: operation not permitted: /var/folders/zy/25fchwpj7pz442qzzkdrfd180000gn/T/nvim.vcz/KdoD17/nvim.20506.0

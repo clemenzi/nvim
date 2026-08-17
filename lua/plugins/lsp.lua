@@ -19,7 +19,7 @@ return {
       },
       "neovim/nvim-lspconfig",
       "saghen/blink.cmp",
-	    "lukas-reineke/lsp-format.nvim",
+      -- "lukas-reineke/lsp-format.nvim",
     },
     keys = {
       {
@@ -39,20 +39,20 @@ return {
         capabilities = require("blink.cmp").get_lsp_capabilities(),
       })
 
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-          require("lsp-format").on_attach(client, args.buf)
-
-          if client:supports_method(
-                vim.lsp.protocol.Methods.textDocument_inlineCompletion,
-                args.buf
-              ) then
-            vim.lsp.inline_completion.enable(true, { bufnr = args.buf })
-          end
-        end,
-      })
+      -- vim.api.nvim_create_autocmd("LspAttach", {
+      --   callback = function(args)
+      --     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+      --
+      --     require("lsp-format").on_attach(client, args.buf)
+      --
+      --     if client:supports_method(
+      --           vim.lsp.protocol.Methods.textDocument_inlineCompletion,
+      --           args.buf
+      --         ) then
+      --       vim.lsp.inline_completion.enable(true, { bufnr = args.buf })
+      --     end
+      --   end,
+      -- })
 
       require("mason-lspconfig").setup(opts)
     end,

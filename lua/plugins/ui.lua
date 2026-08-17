@@ -30,8 +30,7 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		enabled = not vim.g.vscode,
 		main = "ibl",
-		-- Draw guides only after the user starts interacting with the buffer.
-		event = "CursorMoved",
+		event = "BufReadPost",
 		---@module "ibl"
 		---@type ibl.config
 		opts = {
