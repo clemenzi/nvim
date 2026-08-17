@@ -3,7 +3,9 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     enabled = not vim.g.vscode,
-    event = { "BufReadPre", "BufNewFile" },
+    -- Reading code should be instant. Start the expensive LSP stack only
+    -- when the buffer is actually edited (or via one of its commands/keys).
+    event = "InsertEnter",
     cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     dependencies = {
       {
@@ -25,7 +27,7 @@ return {
         function()
           vim.lsp.buf.format()
         end,
-        { desc = "Format File" },
+        desc = "Format File",
       },
     },
     opts = {
@@ -57,7 +59,7 @@ return {
   },
   {
     "folke/lazydev.nvim",
-    ft = "lua",
+    event = "InsertEnter",
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },

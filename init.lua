@@ -35,7 +35,12 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	checker = { enabled = true },
+	-- Every plugin must opt in to a loading trigger.  The colourscheme is the
+	-- sole exception because it is part of the initial UI.
+	defaults = { lazy = true },
+	-- Avoid a background update check on every launch; use :Lazy check when
+	-- updates are wanted.
+	checker = { enabled = false },
 })
 
 -- Built-in terminal settings
@@ -48,5 +53,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.cmd.startinsert()
 	end,
 })
-
-
